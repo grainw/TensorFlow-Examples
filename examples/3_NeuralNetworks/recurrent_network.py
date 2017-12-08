@@ -66,7 +66,8 @@ def RNN(x, weights, biases):
     return tf.matmul(outputs[-1], weights['out']) + biases['out']
 
 pred = RNN(x, weights, biases)
-
+print (pred.shape)
+print (y.shape)
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)

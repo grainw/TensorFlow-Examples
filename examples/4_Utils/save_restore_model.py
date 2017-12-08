@@ -19,7 +19,7 @@ import tensorflow as tf
 learning_rate = 0.001
 batch_size = 100
 display_step = 1
-model_path = "/tmp/model.ckpt"
+model_path = "/tmp/model/model.ckpt"
 
 # Network Parameters
 n_hidden_1 = 256 # 1st layer number of features
@@ -70,38 +70,38 @@ init = tf.global_variables_initializer()
 saver = tf.train.Saver()
 
 # Running first session
-print("Starting 1st session...")
-with tf.Session() as sess:
-    # Initialize variables
-    sess.run(init)
-
-    # Training cycle
-    for epoch in range(3):
-        avg_cost = 0.
-        total_batch = int(mnist.train.num_examples/batch_size)
-        # Loop over all batches
-        for i in range(total_batch):
-            batch_x, batch_y = mnist.train.next_batch(batch_size)
-            # Run optimization op (backprop) and cost op (to get loss value)
-            _, c = sess.run([optimizer, cost], feed_dict={x: batch_x,
-                                                          y: batch_y})
-            # Compute average loss
-            avg_cost += c / total_batch
-        # Display logs per epoch step
-        if epoch % display_step == 0:
-            print("Epoch:", '%04d' % (epoch+1), "cost=", \
-                "{:.9f}".format(avg_cost))
-    print("First Optimization Finished!")
-
-    # Test model
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    # Calculate accuracy
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
-
-    # Save model weights to disk
-    save_path = saver.save(sess, model_path)
-    print("Model saved in file: %s" % save_path)
+# print("Starting 1st session...")
+# with tf.Session() as sess:
+#     # Initialize variables
+#     sess.run(init)
+#
+#     # Training cycle
+#     for epoch in range(3):
+#         avg_cost = 0.
+#         total_batch = int(mnist.train.num_examples/batch_size)
+#         # Loop over all batches
+#         for i in range(total_batch):
+#             batch_x, batch_y = mnist.train.next_batch(batch_size)
+#             # Run optimization op (backprop) and cost op (to get loss value)
+#             _, c = sess.run([optimizer, cost], feed_dict={x: batch_x,
+#                                                           y: batch_y})
+#             # Compute average loss
+#             avg_cost += c / total_batch
+#         # Display logs per epoch step
+#         if epoch % display_step == 0:
+#             print("Epoch:", '%04d' % (epoch+1), "cost=", \
+#                 "{:.9f}".format(avg_cost))
+#     print("First Optimization Finished!")
+#
+#     # Test model
+#     correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+#     # Calculate accuracy
+#     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+#     print("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+#
+#     # Save model weights to disk
+#     save_path = saver.save(sess, model_path)
+#     print("Model saved in file: %s" % save_path)
 
 # Running a new session
 print("Starting 2nd session...")
@@ -111,7 +111,7 @@ with tf.Session() as sess:
 
     # Restore model weights from previously saved model
     saver.restore(sess, model_path)
-    print("Model restored from file: %s" % save_path)
+    print("Model restored from file: %s" % model_path)
 
     # Resume training
     for epoch in range(7):

@@ -39,7 +39,7 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
 # Initializing the variables
 init = tf.global_variables_initializer()
-
+5
 # Launch the graph
 with tf.Session() as sess:
     sess.run(init)
