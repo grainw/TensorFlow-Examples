@@ -79,7 +79,7 @@ y_pred = decoder_op
 y_true = X
 
 # Define loss and optimizer, minimize the squared error
-cost = tf.reduce_mean(tf.pow(y_true - y_pred, 2))
+cost = tf.reduce_mean(tf.pow(y_true - y_pred, 2)) #最小平方误差法。
 optimizer = tf.train.RMSPropOptimizer(learning_rate).minimize(cost)
 
 # Initializing the variables

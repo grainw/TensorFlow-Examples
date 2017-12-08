@@ -57,7 +57,7 @@ def BiRNN(x, weights, biases):
 
     # Unstack to get a list of 'n_steps' tensors of shape (batch_size, n_input)
     x = tf.unstack(x, n_steps, 1)
-
+    print (x)
     # Define lstm cells with tensorflow
     # Forward direction cell
     lstm_fw_cell = rnn.BasicLSTMCell(n_hidden, forget_bias=1.0)
@@ -77,9 +77,10 @@ def BiRNN(x, weights, biases):
 
 pred = BiRNN(x, weights, biases)
 
+global_step = tf.Variable(0,name="global_step", trainable=False)
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost,global_step= global_step)
 
 # Evaluate model
 correct_pred = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
