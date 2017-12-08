@@ -1,13 +1,15 @@
-'''
+""" Dynamic Recurrent Neural Network.
+
 A Dynamic Recurrent Neural Network (LSTM) implementation example using
 TensorFlow library. This example is using a toy dataset to classify linear
 sequences. The generated sequences have variable length.
 
-Long Short Term Memory paper: http://deeplearning.cs.cmu.edu/pdfs/Hochreiter97_lstm.pdf
+Links:
+    [Long Short Term Memory](http://deeplearning.cs.cmu.edu/pdfs/Hochreiter97_lstm.pdf)
 
 Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
-'''
+"""
 
 from __future__ import print_function
 
@@ -157,12 +159,15 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minim
 correct_pred = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-# Initializing the variables
+# Initialize the variables (i.e. assign their default value)
 init = tf.global_variables_initializer()
 
-# Launch the graph
+# Start training
 with tf.Session() as sess:
+
+    # Run the initializer
     sess.run(init)
+
     step = 1
     # Keep training until reach max iterations
     while step * batch_size < training_iters:
